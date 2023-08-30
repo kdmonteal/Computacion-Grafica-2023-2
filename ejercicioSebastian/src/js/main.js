@@ -11,7 +11,8 @@ var scene = null,
     cube = null,
     torus = null,
     cone = null,
-    shapesArray = [];
+    shapesArray = [],
+    light = null;
 
 const size = 20,
       divisions = 20;
@@ -48,18 +49,50 @@ function startScene() {
     animate();
 }
 
+function createLight(typeLight) {
+    
+    switch (typeLight) {
+        case "ambient":
+            light = new THREE.AmbientLight( 0x404040 ); // soft white light
+            scene.add( light );
+          break;
+        case "pointLight":
+            light = new THREE.PointLight( 0xff00ff, 1, 100 );
+            light.position.set( 0, 10, 0 );
+            scene.add( light );
+
+            const sphereSize = 1;
+            const pointLightHelper = new THREE.PointLightHelper( light, sphereSize );
+            scene.add( pointLightHelper );
+          break;
+        case "spotLight":
+            light = new THREE.SpotLight( 0xffffff );
+            light.position.set( 10, 10, 10 );
+            scene.add( light );
+
+            const spotLightHelper = new THREE.SpotLightHelper( light );
+            scene.add( spotLightHelper );
+          break;
+      }
+}
+
 function addShape(shapeType){
     var geometry, material, mesh;
 
     switch (shapeType) {
         case 'cube':
             geometry = new THREE.BoxGeometry(1, 1, 1);
-            material = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe:true });
+            material = new THREE.MeshBasicMaterial({ color: 0x00ff00, 
+                                                     transparent: true,
+                                                     opacity: 0.1,
+                                                     wireframe: true});
             mesh = new THREE.Mesh(geometry, material);
             break;
         case 'torus':
             geometry = new THREE.TorusGeometry(0.5, 0.2, 16, 100);
-            material = new THREE.MeshBasicMaterial({ color: 0xff0000, wireframe:true });
+            material = new THREE.MeshStandardMaterial({ color: 0xff0000, 
+                                                        roughness: 0.5,
+                                                        metalness:0.5 });
             mesh = new THREE.Mesh(geometry, material);
             break;
         case 'cone':
