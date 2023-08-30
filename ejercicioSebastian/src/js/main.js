@@ -84,16 +84,23 @@ function addShape(shapeType){
 
     switch (shapeType) {
         case 'cube':
-            const texture = new THREE.TextureLoader().load('../src/img/animals/face1.jpg'); 
+            const texture = new THREE.TextureLoader().load('../src/img/animals/face1.jpg');
 
-            geometry = new THREE.BoxGeometry(50, 50, 50);
+            var materialCube = [new THREE.MeshBasicMaterial ({map:new THREE.TextureLoader().load('../src/img/animals/face1.jpg')}),
+                                new THREE.MeshBasicMaterial ({map:new THREE.TextureLoader().load('../src/img/animals/face2.png')}),
+                                new THREE.MeshBasicMaterial ({map:new THREE.TextureLoader().load('../src/img/animals/face3.jpg')}),
+                                new THREE.MeshBasicMaterial ({map:new THREE.TextureLoader().load('../src/img/animals/face4.jpg')}),
+                                new THREE.MeshBasicMaterial ({map:new THREE.TextureLoader().load('../src/img/animals/face5.png')}),
+                                new THREE.MeshBasicMaterial ({map:new THREE.TextureLoader().load('../src/img/animals/face6.jpg')})];
+
+            geometry = new THREE.BoxGeometry(5, 5, 5);
             material = new THREE.MeshBasicMaterial({ color: 0xffffff, 
                                                      transparent: true,
                                                      opacity: 1,
                                                      side: THREE.DoubleSide,
                                                      map:texture,
                                                      wireframe: false});
-            mesh = new THREE.Mesh(geometry, material);
+            mesh = new THREE.Mesh(geometry, materialCube);
             break;
         case 'torus':
             geometry = new THREE.TorusGeometry(0.5, 0.2, 16, 100);
