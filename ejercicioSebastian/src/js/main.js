@@ -56,11 +56,11 @@ function createLight(typeLight) {
     
     switch (typeLight) {
         case "ambient":
-            light = new THREE.AmbientLight( 0x404040 ); // soft white light
+            light = new THREE.AmbientLight( 0xFFFFFF ); // soft white light
             scene.add( light );
           break;
         case "pointLight":
-            light = new THREE.PointLight( 0xff00ff, 1, 100 );
+            light = new THREE.PointLight( 0xFFFFFF, 1, 100 );
             light.position.set( 0, 10, 0 );
             scene.add( light );
 
@@ -84,11 +84,15 @@ function addShape(shapeType){
 
     switch (shapeType) {
         case 'cube':
-            geometry = new THREE.BoxGeometry(1, 1, 1);
-            material = new THREE.MeshBasicMaterial({ color: 0x00ff00, 
+            const texture = new THREE.TextureLoader().load('../src/img/animals/face1.jpg'); 
+
+            geometry = new THREE.BoxGeometry(50, 50, 50);
+            material = new THREE.MeshBasicMaterial({ color: 0xffffff, 
                                                      transparent: true,
-                                                     opacity: 0.1,
-                                                     wireframe: true});
+                                                     opacity: 1,
+                                                     side: THREE.DoubleSide,
+                                                     map:texture,
+                                                     wireframe: false});
             mesh = new THREE.Mesh(geometry, material);
             break;
         case 'torus':
@@ -133,8 +137,8 @@ function animate(){
     renderer.render(scene, camera);
 
     shapesArray.forEach(shape => {
-        shape.rotation.x += 0.01;
-        shape.rotation.y += 0.01;
+        shape.rotation.x += 0.001;
+        shape.rotation.y += 0.001;
     });
 }
 
