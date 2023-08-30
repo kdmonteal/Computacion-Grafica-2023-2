@@ -144,8 +144,8 @@ function animate(){
     renderer.render(scene, camera);
 
     shapesArray.forEach(shape => {
-        shape.rotation.x += 0.001;
-        shape.rotation.y += 0.001;
+        shape.rotation.x += 0.01;
+        shape.rotation.y += 0.01;
     });
 }
 
