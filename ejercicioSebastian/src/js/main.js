@@ -46,6 +46,9 @@ function startScene() {
     const axesHelper = new THREE.AxesHelper( 5 );
     scene.add( axesHelper );    
 
+    createLight("ambient");
+    createLight("pointLight");
+
     animate();
 }
 
