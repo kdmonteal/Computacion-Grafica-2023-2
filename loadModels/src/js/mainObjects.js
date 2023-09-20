@@ -10,7 +10,7 @@ const size = 20,
 function startScene() {
     // Scene, Camera, Renderer
     scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x33FFC5);
+    scene.background = new THREE.Color(0x000); //33FFC5
     camera = new THREE.PerspectiveCamera(
                                             75,                                        //Angulo de visión(Abajo o arriba) 
                                             window.innerWidth / window.innerHeight,    //Relación de aspecto 16:9
@@ -27,18 +27,26 @@ function startScene() {
     controls.update();
 
     //Grid Helper
-    const gridHelper = new THREE.GridHelper(size, divisions);
-    scene.add(gridHelper);
+    // const gridHelper = new THREE.GridHelper(size, divisions);
+    // scene.add(gridHelper);
 
     //Axes Helper
-    const axesHelper = new THREE.AxesHelper(5);
-    scene.add(axesHelper);
+    // const axesHelper = new THREE.AxesHelper(5);
+    // scene.add(axesHelper);
 
-    const light = new THREE.AmbientLight( 0xFFFFFF ); // soft white light
-    scene.add( light );
+    const lightAmbient = new THREE.AmbientLight( 0xFFFFFF ); // soft white light
+    scene.add( lightAmbient );
+
+    // const light = new THREE.PointLight( 0xffffff, 1, 100 );
+    // light.position.set( 5,10,10 );
+    // scene.add( light );
 
     animate();
-    loadModel_objMtl();
+    // Escenario
+    loadModel_objMtl("../src/models/obj_mtl/escenario/","escenario.obj","escenario.mtl");
+    // Human Model
+    loadModel_objMtl("../src/models/obj_mtl/personaje/","personaje.obj","personaje.mtl");
+
 }
 
 function animate(){
@@ -55,23 +63,21 @@ function onWindowResize(){
     renderer.setSize( window.innerWidth, window.innerHeight );
 }
 
-function loadModel_objMtl() {
+function loadModel_objMtl(path, nameObj, nameMtl) {
     // Load MTL
     var mtlLoader = new THREE.MTLLoader();
-    mtlLoader.setResourcePath("../src/models/obj_mtl/escenario/");
-    mtlLoader.setPath("../src/models/obj_mtl/escenario/");
-    mtlLoader.load("escenario.mtl", function (materials) {
+    mtlLoader.setResourcePath(path);
+    mtlLoader.setPath(path);
+    mtlLoader.load(nameMtl, function (materials) {
         materials.preload();
 
         // Load OBJ
         var objLoader = new THREE.OBJLoader();
-        objLoader.setPath("../src/models/obj_mtl/escenario/");
+        objLoader.setPath(path);
         objLoader.setMaterials(materials);
-        objLoader.load("escenario.obj", function (object) {
+        objLoader.load(nameObj, function (object) {
             scene.add(object);
-            // object.scale.set(5,5,5);
+            object.scale.set(2,2,2);
         });
     });
-
-   
 }
