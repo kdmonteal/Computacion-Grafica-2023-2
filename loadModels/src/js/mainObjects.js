@@ -1,3 +1,7 @@
+// Pato cargado
+// Sounds (background(ambient), takeElements, Win, Lost)
+// 1 pantalla Win, Lost
+
 //Creation elements
 var scene = null,
     camera = null,
