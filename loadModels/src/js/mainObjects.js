@@ -52,6 +52,8 @@ function startScene() {
     loadModel_objMtl("../src/models/obj_mtl/personaje/", "personaje.obj", "personaje.mtl");
     // Duck Model
     loadGltf('../src/models/gltf/pato/', 'Duck.gltf');
+
+    createCollectibles();
 }
 
 function animate() {
@@ -131,6 +133,18 @@ function loadGltf(path, nameGltfGet) {
     );
 }
 
+function createCollectibles() {
+
+    const texture = new THREE.TextureLoader().load('../src/img/paperGift.jpg');
+
+    const geometry = new THREE.BoxGeometry( 1, 1, 1 ); 
+    const material = new THREE.MeshBasicMaterial({ color: 0xffffff, 
+                                                    map:texture});
+    const cube = new THREE.Mesh( geometry, material ); 
+
+    cube.position.set(1,1,-3);
+    scene.add( cube );
+}
 
 // function playSound() {
 //     var myBackground = document.getElementById("myBackgroundSound");
