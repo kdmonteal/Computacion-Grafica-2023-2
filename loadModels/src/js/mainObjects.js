@@ -170,5 +170,9 @@ function stateGame(state) {
             // audio & show img
             document.getElementById("losePage").style.display = "block";
           break;
+        default:
+            document.getElementById("winPage").style.display = "none";
+            document.getElementById("losePage").style.display = "none";
+            break;
       }
 }
