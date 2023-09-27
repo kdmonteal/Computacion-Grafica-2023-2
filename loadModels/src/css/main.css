@@ -14,6 +14,18 @@ body{
     height: 100%;
     background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
+    z-index: 5;
+}
+
+#losePage{
+    position: absolute;
+    background-image: url('../img/loser.png');
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     z-index: 5;
 }
 
