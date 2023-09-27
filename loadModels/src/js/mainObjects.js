@@ -90,7 +90,6 @@ function loadModel_objMtl(path, nameObj, nameMtl) {
 function loadGltf(path, nameGltfGet) {
     var nameGltf = path + nameGltfGet;
 
-    alert(nameGltf);
     // Instantiate a loader
     const loader = new THREE.GLTFLoader();
 
