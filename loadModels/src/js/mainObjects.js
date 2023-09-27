@@ -27,7 +27,7 @@ function startScene() {
 
     //Orbit controls
     controls = new THREE.OrbitControls(camera, renderer.domElement);
-    camera.position.set(0, 0, 20);
+    camera.position.set(13, 7, 13);
     controls.update();
 
     //Grid Helper
@@ -54,12 +54,15 @@ function startScene() {
     loadGltf('../src/models/gltf/pato/', 'Duck.gltf');
 
     createCollectibles();
+    stateGame('lose');
 }
 
 function animate() {
     requestAnimationFrame(animate);
     controls.update();
     renderer.render(scene, camera);
+
+    //console.log(camera.position);
 }
 
 window.addEventListener('resize', onWindowResize, false);
@@ -155,3 +158,17 @@ function createCollectibles() {
 //     var myBackground = document.getElementById("myBackgroundSound");
 //     myBackground.play();
 // }
+
+
+function stateGame(state) {
+    switch(state) {
+        case 'win':
+            // audio & show img
+            document.getElementById("winPage").style.display = "block";
+          break;
+        case 'lose':
+            // audio & show img
+            document.getElementById("losePage").style.display = "block";
+          break;
+      }
+}
