@@ -47,9 +47,9 @@ function startScene() {
 
     animate();
     // Escenario
-    loadModel_objMtl("../src/models/obj_mtl/escenario/", "escenario.obj", "escenario.mtl");
+    loadModel_objMtl("../src/models/obj_mtl/escenario/", "escenario.obj", "escenario.mtl",3);
     // Human Model
-    loadModel_objMtl("../src/models/obj_mtl/personaje/", "personaje.obj", "personaje.mtl");
+    loadModel_objMtl("../src/models/obj_mtl/personaje/", "personaje.obj", "personaje.mtl",2);
     // Duck Model
     loadGltf('../src/models/gltf/pato/', 'Duck.gltf');
 
@@ -70,7 +70,7 @@ function onWindowResize() {
     renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
-function loadModel_objMtl(path, nameObj, nameMtl) {
+function loadModel_objMtl(path, nameObj, nameMtl, size) {
     // Load MTL
     var mtlLoader = new THREE.MTLLoader();
     mtlLoader.setResourcePath(path);
@@ -84,7 +84,7 @@ function loadModel_objMtl(path, nameObj, nameMtl) {
         objLoader.setMaterials(materials);
         objLoader.load(nameObj, function (object) {
             scene.add(object);
-            object.scale.set(2, 2, 2);
+            object.scale.set(size, size, size);
         });
     });
 }
@@ -115,7 +115,7 @@ function loadGltf(path, nameGltfGet) {
             gltf.cameras; // Array<THREE.Camera>
             gltf.asset; // Object
 
-            gltf.scene.position.set(0, 0, 2);
+            gltf.scene.position.set(0, 0.5, 2);
 
         },
         // called while loading is progressing
@@ -134,16 +134,21 @@ function loadGltf(path, nameGltfGet) {
 }
 
 function createCollectibles() {
+    const min = -5;
+    const max = 5;
+    for (var i = 0; i < 5; i++) {
+        var posx = Math.floor(Math.random() * (max - min + 1) + min);
+        var posz = Math.floor(Math.random() * (max - min + 1) + min);
 
-    const texture = new THREE.TextureLoader().load('../src/img/paperGift.jpg');
+        const texture = new THREE.TextureLoader().load('../src/img/paperGift.jpg');
+        const geometry = new THREE.BoxGeometry( 1, 1, 1 ); 
+        const material = new THREE.MeshBasicMaterial({ color: 0xffffff, map:texture});
+        const cube = new THREE.Mesh( geometry, material ); 
+        cube.position.set(posx,1,posz);
+        scene.add( cube );
 
-    const geometry = new THREE.BoxGeometry( 1, 1, 1 ); 
-    const material = new THREE.MeshBasicMaterial({ color: 0xffffff, 
-                                                    map:texture});
-    const cube = new THREE.Mesh( geometry, material ); 
-
-    cube.position.set(1,1,-3);
-    scene.add( cube );
+        console.log(i);
+    }
 }
 
 // function playSound() {
