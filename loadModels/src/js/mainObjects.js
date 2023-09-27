@@ -130,3 +130,9 @@ function loadGltf(path, nameGltfGet) {
         }
     );
 }
+
+
+// function playSound() {
+//     var myBackground = document.getElementById("myBackgroundSound");
+//     myBackground.play();
+// }
