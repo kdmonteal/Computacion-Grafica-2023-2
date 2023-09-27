@@ -54,7 +54,7 @@ function startScene() {
     loadGltf('../src/models/gltf/pato/', 'Duck.gltf');
 
     createCollectibles();
-    stateGame('lose');
+    stateGame('');
 }
 
 function animate() {
