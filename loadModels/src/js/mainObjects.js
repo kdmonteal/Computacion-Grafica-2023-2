@@ -225,7 +225,6 @@ function createPlayer() {
 }
 
 function movementPlayer() {
-    
     if(input.right == 1){ // Rotation Right
         camera.rotation.y -= rootSpeed;
         myPlayer.rotation.y -= rootSpeed;
@@ -237,15 +236,48 @@ function movementPlayer() {
         camera.position.z -= Math.sin(camera.rotation.y) * speed;
         myPlayer.position.z -= Math.cos(camera.rotation.y) * speed;
         myPlayer.position.z -= Math.sin(camera.rotation.y) * speed;
-        
     } else if(input.down == 1){ // movement down
         camera.position.z += Math.cos(camera.rotation.y) * speed;
         camera.position.z += Math.sin(camera.rotation.y) * speed;
         myPlayer.position.z += Math.cos(camera.rotation.y) * speed;
         myPlayer.position.z += Math.sin(camera.rotation.y) * speed;
     }
-
-
-
-
 }
+
+document.addEventListener('keydown', (e) => {
+    console.log("Undi: "+e.keyCode);
+
+    switch(e.keyCode) {
+        case 68: // Derecha
+            input.right = 1;
+          break;
+        case 65: // Izquierda
+            input.left = 1;
+          break;
+        case 87: // Ariba
+            input.up = 1;
+          break;
+        case 83: // Abajo
+            input.down = 1;
+          break;
+    }
+});
+
+document.addEventListener('keyup', (e) => {
+    console.log("Solte: "+e.keyCode);
+
+    switch(e.keyCode) {
+        case 68: // Derecha
+            input.right = 0;
+          break;
+        case 65: // Izquierda
+            input.left = 0;
+          break;
+        case 87: // Ariba
+            input.up = 0;
+          break;
+        case 83: // Abajo
+            input.down = 0;
+          break;
+    }
+});
