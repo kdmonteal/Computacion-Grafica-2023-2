@@ -32,10 +32,10 @@ function startScene() {
     document.body.appendChild(renderer.domElement);
 
     //Orbit controls
-    controls = new THREE.OrbitControls(camera, renderer.domElement);
-    //camera.position.set(0, 5, 20);   
-    camera.position.set(13, 7, 13);
-    controls.update();
+    // controls = new THREE.OrbitControls(camera, renderer.domElement);
+    camera.position.set(0, 5, 20);   
+    // camera.position.set(13, 7, 13);
+    // controls.update();
 
     //Grid Helper
     // const gridHelper = new THREE.GridHelper(size, divisions);
@@ -73,7 +73,9 @@ function startScene() {
 
 function animate() {
     requestAnimationFrame(animate);
-    controls.update();
+    // controls.update();
+
+    movementPlayer();
     renderer.render(scene, camera);
 
     //console.log(camera.position);
@@ -219,9 +221,11 @@ function createPlayer() {
 
     const geometry = new THREE.BoxGeometry( 3, 6, 3 ); 
     const material = new THREE.MeshBasicMaterial( {color: 0x00ff00, wireframe:true} ); 
-    const cube = new THREE.Mesh( geometry, material ); 
-    scene.add( cube );
-    cube.position.y = 3;
+    myPlayer = new THREE.Mesh( geometry, material ); 
+    scene.add( myPlayer );
+    myPlayer.position.y = 3;
+
+    myPlayer.position.set(camera.position.x,camera.position.y,camera.position.z);
 }
 
 function movementPlayer() {
