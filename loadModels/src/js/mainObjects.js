@@ -111,7 +111,8 @@ function loadModel_objMtl(path, nameObj, nameMtl, size) {
             if(nameObj == "personaje.obj"){
                 myPlayerMesh = object;
                 myPlayerMesh.rotation.y = Math.PI;
-                // myPlayerMesh.position.z = 10;
+                // myPlayerMesh.position.set(camera.position.x,camera.position.y+3 ,camera.position.z-10);
+
             }
         });
     });
@@ -251,15 +252,15 @@ function movementPlayer() {
         camera.position.z -= Math.sin(camera.rotation.y) * speed;
         myPlayer.position.z -= Math.cos(camera.rotation.y) * speed;
         myPlayer.position.z -= Math.sin(camera.rotation.y) * speed;
-        // myPlayerMesh.position.z -= Math.cos(camera.rotation.y) * speed;
-        // myPlayerMesh.position.z -= Math.sin(camera.rotation.y) * speed;
+        myPlayerMesh.position.z -= Math.cos(camera.rotation.y) * speed;
+        myPlayerMesh.position.z -= Math.sin(camera.rotation.y) * speed;
     } else if(input.down == 1){ // movement down
         camera.position.z += Math.cos(camera.rotation.y) * speed;
         camera.position.z += Math.sin(camera.rotation.y) * speed;
         myPlayer.position.z += Math.cos(camera.rotation.y) * speed;
         myPlayer.position.z += Math.sin(camera.rotation.y) * speed;
-        // myPlayerMesh.position.z += Math.cos(camera.rotation.y) * speed;
-        // myPlayerMesh.position.z += Math.sin(camera.rotation.y) * speed;
+        myPlayerMesh.position.z += Math.cos(camera.rotation.y) * speed;
+        myPlayerMesh.position.z += Math.sin(camera.rotation.y) * speed;
     }
 }
 
