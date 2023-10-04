@@ -14,7 +14,7 @@ const size = 20,
 // Avatar
 var myPlayer = null,
     input = {left:0, right:0, up:0, down:0},
-    rotSpeed = 0.05,
+    rootSpeed = 0.05,
     speed = 0.5;
 
 function startScene() {
@@ -65,6 +65,9 @@ function startScene() {
     // Establecer la duración del temporizador en segundos (por ejemplo, 60 segundos)
     const duration = 60;
     startTimer(duration);
+
+    // My Player
+    createPlayer();
 }
 
 function animate() {
@@ -210,5 +213,6 @@ function startTimer(duration) {
     const interval = setInterval(updateTimer, 1000);
 }
 
-
-
+function createPlayer() {
+    console.log("create player");
+}
