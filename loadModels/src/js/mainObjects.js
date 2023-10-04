@@ -11,6 +11,12 @@ var scene = null,
 const size = 20,
     divisions = 20;
 
+// Avatar
+var myPlayer = null,
+    input = {left:0, right:0, up:0, down:0},
+    rotSpeed = 0.05,
+    speed = 0.5;
+
 function startScene() {
     // Scene, Camera, Renderer
     scene = new THREE.Scene();
@@ -26,9 +32,9 @@ function startScene() {
     document.body.appendChild(renderer.domElement);
 
     //Orbit controls
-    controls = new THREE.OrbitControls(camera, renderer.domElement);
-    camera.position.set(13, 7, 13);
-    controls.update();
+    // controls = new THREE.OrbitControls(camera, renderer.domElement);
+    camera.position.set(0, 5, 20);   //camera.position.set(13, 7, 13);
+    // controls.update();
 
     //Grid Helper
     // const gridHelper = new THREE.GridHelper(size, divisions);
@@ -47,19 +53,23 @@ function startScene() {
 
     animate();
     // Escenario
-    loadModel_objMtl("../src/models/obj_mtl/escenario/", "escenario.obj", "escenario.mtl",3);
+    loadModel_objMtl("../src/models/obj_mtl/escenario/", "escenario.obj", "escenario.mtl", 3);
     // Human Model
-    loadModel_objMtl("../src/models/obj_mtl/personaje/", "personaje.obj", "personaje.mtl",2);
+    loadModel_objMtl("../src/models/obj_mtl/personaje/", "personaje.obj", "personaje.mtl", 2);
     // Duck Model
     loadGltf('../src/models/gltf/pato/', 'Duck.gltf');
 
     createCollectibles();
     stateGame('');
+
+    // Establecer la duración del temporizador en segundos (por ejemplo, 60 segundos)
+    const duration = 60;
+    startTimer(duration);
 }
 
 function animate() {
     requestAnimationFrame(animate);
-    controls.update();
+    // controls.update();
     renderer.render(scene, camera);
 
     //console.log(camera.position);
@@ -144,11 +154,11 @@ function createCollectibles() {
         var posz = Math.floor(Math.random() * (max - min + 1) + min);
 
         const texture = new THREE.TextureLoader().load('../src/img/paperGift.jpg');
-        const geometry = new THREE.BoxGeometry( 1, 1, 1 ); 
-        const material = new THREE.MeshBasicMaterial({ color: 0xffffff, map:texture});
-        const cube = new THREE.Mesh( geometry, material ); 
-        cube.position.set(posx,1,posz);
-        scene.add( cube );
+        const geometry = new THREE.BoxGeometry(1, 1, 1);
+        const material = new THREE.MeshBasicMaterial({ color: 0xffffff, map: texture });
+        const cube = new THREE.Mesh(geometry, material);
+        cube.position.set(posx, 1, posz);
+        scene.add(cube);
 
         console.log(i);
     }
@@ -161,18 +171,44 @@ function createCollectibles() {
 
 
 function stateGame(state) {
-    switch(state) {
+    switch (state) {
         case 'win':
             // audio & show img
             document.getElementById("winPage").style.display = "block";
-          break;
+            break;
         case 'lose':
             // audio & show img
             document.getElementById("losePage").style.display = "block";
-          break;
+            break;
         default:
             document.getElementById("winPage").style.display = "none";
             document.getElementById("losePage").style.display = "none";
             break;
-      }
+    }
 }
+
+// Define una función para iniciar el temporizador
+function startTimer(duration) {
+    let timer = duration;
+    const countdown = document.getElementById('countdown');
+
+    function updateTimer() {
+        countdown.textContent = timer;
+        if (timer <= 0) {
+            // Detener el temporizador
+            clearInterval(interval);
+            // Mostrar #losepage
+            stateGame("lose");
+        }
+        timer--;
+    }
+
+    // Actualizar el temporizador inicialmente
+    updateTimer();
+
+    // Establecer un intervalo para actualizar el temporizador cada 1000 milisegundos (1 segundo)
+    const interval = setInterval(updateTimer, 1000);
+}
+
+
+
