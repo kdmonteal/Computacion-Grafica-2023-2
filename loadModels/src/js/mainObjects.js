@@ -223,3 +223,29 @@ function createPlayer() {
     scene.add( cube );
     cube.position.y = 3;
 }
+
+function movementPlayer() {
+    
+    if(input.right == 1){ // Rotation Right
+        camera.rotation.y -= rootSpeed;
+        myPlayer.rotation.y -= rootSpeed;
+    } else if(input.left == 1) { // Rotation left
+        camera.rotation.y += rootSpeed;
+        myPlayer.rotation.y += rootSpeed;
+    } else if(input.up == 1){ // movement up
+        camera.position.z -= Math.cos(camera.rotation.y) * speed;
+        camera.position.z -= Math.sin(camera.rotation.y) * speed;
+        myPlayer.position.z -= Math.cos(camera.rotation.y) * speed;
+        myPlayer.position.z -= Math.sin(camera.rotation.y) * speed;
+        
+    } else if(input.down == 1){ // movement down
+        camera.position.z += Math.cos(camera.rotation.y) * speed;
+        camera.position.z += Math.sin(camera.rotation.y) * speed;
+        myPlayer.position.z += Math.cos(camera.rotation.y) * speed;
+        myPlayer.position.z += Math.sin(camera.rotation.y) * speed;
+    }
+
+
+
+
+}
