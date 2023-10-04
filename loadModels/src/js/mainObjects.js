@@ -13,6 +13,7 @@ const size = 20,
 
 // Avatar
 var myPlayer = null,
+    myPlayerMesh = null,
     input = {left:0, right:0, up:0, down:0},
     rootSpeed = 0.05,
     speed = 0.5;
@@ -33,8 +34,10 @@ function startScene() {
 
     //Orbit controls
     // controls = new THREE.OrbitControls(camera, renderer.domElement);
-    camera.position.set(0, 5, 20);   
-    // camera.position.set(13, 7, 13);
+      
+    //camera.position.set(13, 7, 13);
+    camera.position.set(0, 3, 0);
+
     // controls.update();
 
     //Grid Helper
@@ -78,7 +81,7 @@ function animate() {
     movementPlayer();
     renderer.render(scene, camera);
 
-    //console.log(camera.position);
+    // console.log(camera.position);
 }
 
 window.addEventListener('resize', onWindowResize, false);
@@ -104,6 +107,12 @@ function loadModel_objMtl(path, nameObj, nameMtl, size) {
         objLoader.load(nameObj, function (object) {
             scene.add(object);
             object.scale.set(size, size, size);
+
+            if(nameObj == "personaje.obj"){
+                myPlayerMesh = object;
+                myPlayerMesh.rotation.y = Math.PI;
+                // myPlayerMesh.position.z = 10;
+            }
         });
     });
 }
@@ -225,26 +234,32 @@ function createPlayer() {
     scene.add( myPlayer );
     myPlayer.position.y = 3;
 
-    myPlayer.position.set(camera.position.x,camera.position.y,camera.position.z);
+    myPlayer.position.set(camera.position.x,camera.position.y+3 ,camera.position.z);
 }
 
 function movementPlayer() {
     if(input.right == 1){ // Rotation Right
         camera.rotation.y -= rootSpeed;
         myPlayer.rotation.y -= rootSpeed;
+        myPlayerMesh.rotation.y -= rootSpeed;
     } else if(input.left == 1) { // Rotation left
         camera.rotation.y += rootSpeed;
         myPlayer.rotation.y += rootSpeed;
+        myPlayerMesh.rotation.y += rootSpeed;
     } else if(input.up == 1){ // movement up
         camera.position.z -= Math.cos(camera.rotation.y) * speed;
         camera.position.z -= Math.sin(camera.rotation.y) * speed;
         myPlayer.position.z -= Math.cos(camera.rotation.y) * speed;
         myPlayer.position.z -= Math.sin(camera.rotation.y) * speed;
+        // myPlayerMesh.position.z -= Math.cos(camera.rotation.y) * speed;
+        // myPlayerMesh.position.z -= Math.sin(camera.rotation.y) * speed;
     } else if(input.down == 1){ // movement down
         camera.position.z += Math.cos(camera.rotation.y) * speed;
         camera.position.z += Math.sin(camera.rotation.y) * speed;
         myPlayer.position.z += Math.cos(camera.rotation.y) * speed;
         myPlayer.position.z += Math.sin(camera.rotation.y) * speed;
+        // myPlayerMesh.position.z += Math.cos(camera.rotation.y) * speed;
+        // myPlayerMesh.position.z += Math.sin(camera.rotation.y) * speed;
     }
 }
 
