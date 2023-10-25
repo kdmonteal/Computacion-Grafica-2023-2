@@ -365,6 +365,16 @@ function collisionAnimate() {
       }else{
         addOrDeletePoints(collisionResults[0].object.name);
         document.getElementById("points").innerHTML = points;
+
+        if (points == numberToCreate) {
+          document.getElementById("winner").style.display = "block";
+          document.getElementById("cointainerOthers").style.display = "none";
+          // playLoseSound();
+
+          // Play the sound of losing
+          var winnerSound = new Audio('../songs/win.mp3');
+          winnerSound.play();
+        } 
       }
     }else {
       document.getElementById("lives").innerHTML = lives; // 'no toco';  
@@ -374,10 +384,16 @@ function collisionAnimate() {
 }
 
 function addOrDeletePoints(namePickUp) {
-  console.log(namePickUp);
+  for(w=0;w<collidableMeshList.length;w++){
+    if(collidableMeshList[w].name == namePickUp){
+        collidableMeshList[w].visible = false;
+        collidableMeshList.shift(); // elimina el indice deseado
 
-  for(w=0;w<collidableMeshList;w++){
-
+        // Play the sound of losing
+        var collectibleSound = new Audio('../songs/collectible.mp3');
+        collectibleSound.play();
+    }
+    points = numberToCreate - (collidableMeshList.length-1);
   }
 }
 
@@ -397,13 +413,13 @@ function createCollectibles() {
     const max = 5;
     for (var i = 0; i < 5; i++) {
         var posx = Math.floor(Math.random() * (max - min + 1) + min);
-        var posz = Math.floor(Math.random() * (max - min + 1) + min);
+        var posz = i * -0.8;
 
         const texture = new THREE.TextureLoader().load('./img/paperGift.jpg');
         const geometry = new THREE.BoxGeometry(0.5, 0.5, 0.5);
         const material = new THREE.MeshBasicMaterial({ color: 0xffffff, map: texture });
         const cube = new THREE.Mesh(geometry, material);
-        cube.position.set(posx, 0.5, posz);
+        cube.position.set(1, 0.5, posz);
 
         cube.name = "modelToPick"+i;
         cube.id = "modelToPick"+i;
