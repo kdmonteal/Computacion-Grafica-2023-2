@@ -17,6 +17,7 @@ var sound1 = null,
 var MovingCube = null,
   collidableMeshList = [],
   lives = 3,
+  points = 0,
   numberToCreate = 5;
 
 var color = new THREE.Color();
@@ -366,6 +367,7 @@ function collisionAnimate() {
       }
     }else {
       document.getElementById("lives").innerHTML = lives; // 'no toco';  
+      document.getElementById("points").innerHTML = points; // 'no toco';  
     } 
   }
 }
