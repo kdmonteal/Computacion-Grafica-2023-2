@@ -351,8 +351,6 @@ function collisionAnimate() {
     var ray = new THREE.Raycaster(originPoint, directionVector.clone().normalize());
     var collisionResults = ray.intersectObjects(collidableMeshList);
     if (collisionResults.length > 0 && collisionResults[0].distance < directionVector.length()) {
-
-      console.log(collisionResults[0].object.name);
       if(collisionResults[0].object.name == "frontera"){
           document.getElementById("lives").innerHTML = lives;//'toco, '+ JSON.stringify(collisionResults[0].object.name);//points;
           camera.position.set(posX, posY, posZ);
@@ -364,11 +362,22 @@ function collisionAnimate() {
             document.getElementById("cointainerOthers").style.display = "none";
             playLoseSound();
           } 
+      }else{
+        addOrDeletePoints(collisionResults[0].object.name);
+        document.getElementById("points").innerHTML = points;
       }
     }else {
       document.getElementById("lives").innerHTML = lives; // 'no toco';  
       document.getElementById("points").innerHTML = points; // 'no toco';  
     } 
+  }
+}
+
+function addOrDeletePoints(namePickUp) {
+  console.log(namePickUp);
+
+  for(w=0;w<collidableMeshList;w++){
+
   }
 }
 
